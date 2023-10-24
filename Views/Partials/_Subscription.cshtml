@@ -1,0 +1,34 @@
+﻿@using Crito.Models;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Crito.Services;
+@inject SubscriptionService service;
+@{
+    var subscription = new SubscriptionForm();
+}
+
+
+<section class="news-signup">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+                @using (Html.BeginUmbracoForm("Index", "Subscription", FormMethod.Post))
+              {
+                  <div class="row justify-content-center">
+                    <div class="col-12 col-md-5 col-lg-6">
+                        <h1>Get News Updates By Signup</h1>
+                    </div>
+                    <div class="col-12 col-md-4 text-md-end text-center">
+                        <input class="py-2 px-5 rounded-5 border-0 " type="email" name="email" asp-for="@subscription.Email" placeholder="YourEmail@domain.com" />
+                    </div>
+                    <div class="col-12 my-3 my-md-0 text-center text-md-start col-md-3 col-lg-2">
+                        <button type="submit" class="yellow-button-anchor border-0">
+                            Subscribe <i class="fa-solid fa-arrow-up-right"></i>
+                        </button>
+                    </div>
+                  </div>
+              }
+        </div>
+    </div>
+</section>
+
+
+

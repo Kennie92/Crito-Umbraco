@@ -1,0 +1,58 @@
+﻿@using Crito.Models;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var contactForm = new ContactForm();
+}
+
+
+
+<section class="contact-us-form">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+                <h2>Leave us a message for any information</h2>
+            </div>
+            <div class="col-12 px-5 py-3">
+                <div class="row d-flex justify-content-center text-center">
+                    @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+                    {
+                        <div class="alert alert-danger col-6">
+                            <strong>Error: </strong>@TempData["ErrorMessage"]
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(TempData["Success"] as string))
+                    {
+                        <div class="alert alert-success col-6">
+                            <strong>Success: </strong>@TempData["Success"]
+                        </div>
+                    }
+                @using (Html.BeginUmbracoForm("Index", "Contacts", FormMethod.Post))
+                   {
+                    <input
+                        asp-for="@contactForm.Name"
+                        class="col-10 mb-3"
+                        type="text"
+                        placeholder="Name*"
+                    />
+                    <input asp-for="@contactForm.Email"
+                        class="col-10 mb-3"
+                        type="email"
+                        placeholder="email*"
+                    />
+                    <textarea asp-for="@contactForm.Message"
+                        placeholder="Your Message*"
+                        class="col-10 mb-5"
+                        rows="4"
+                        cols="50"
+                    ></textarea>
+                    <button type="submit" class="col-10 yellow-button-anchor">
+                        Send Message
+                        <i class="fa-solid fa-arrow-up-right"></i>
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

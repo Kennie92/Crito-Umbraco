@@ -1,0 +1,40 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArticleItemPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Services;
+@inject IUserService UserService;
+@{
+    Layout = "_Layout.cshtml";
+    var userService = UserService;
+
+    var selection = Umbraco.Content(Guid.Parse("f0723956-45ba-4e26-9181-6fb7a0656201"))?
+    .ChildrenOfType("articleItemPage")?
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate).ToList();
+    
+    
+    
+    var listOfArticlesFullInformation = selection;
+    
+
+
+
+    var selectionWithThreeCards = selection.Take(3);
+    
+    ViewData["Categories"] = listOfArticlesFullInformation;
+
+    ViewData["ListOfArticles"] = selection;
+    
+
+	
+}
+
+
+
+
+@await Html.PartialAsync("_BreadcrumbSection")
+
+@await Html.PartialAsync("_ArticleDetailsSection", Model)
+
+@await Html.PartialAsync("_ArticlesAndNewsSection", selectionWithThreeCards)

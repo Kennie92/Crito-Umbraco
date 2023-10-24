@@ -1,0 +1,41 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+
+
+
+
+@{  
+    var featuresBlockList = Model.FeaturesBlockList;
+    var blockListModel = new BlockListModel(featuresBlockList.OrderByDescending(x => featuresBlockList.IndexOf(x)).ToList());
+}
+
+<section class="features">
+    <div class="container">
+        <div class="row d-flex justify-content-between">
+            <div class="col-12 col-xl-4">
+                <h1 class="title-orange">@Model.Value("featuresTitle")</h1>
+                <h2 class="ingress">
+                   @Model.Value("featuresIngress")
+                </h2>
+
+                <a href=" @Model.Value("featuresButtonUrl")" class="yellow-button-anchor"
+                    >Learn More
+                    <i class="fa-solid fa-arrow-up-right"></i
+                ></a>
+            </div>
+            <div class="col-12 col-xl-7">
+                <div class="row d-flex justify-content-between">
+                    @Html.GetBlockListHtml(blockListModel)
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="@Model.Value("featuresButtonUrl")" class="button-for-small-screen">Learn More
+                <i class="fa-solid fa-arrow-up-right"></i
+            ></a>
+        </div>
+    </div>
+</section>

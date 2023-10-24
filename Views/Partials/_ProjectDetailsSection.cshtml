@@ -1,0 +1,80 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage;
+@using Umbraco.Cms.Core.Services;
+@inject IUserService UserService;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+
+@{
+    var selectionWithAllContent = ViewData["Categories"] as IEnumerable<IPublishedContent>;
+    var listOfProjects = ViewData["ListOfProjects"] as List<IPublishedContent>;
+    
+    var categoriesAndPosts = selectionWithAllContent
+    .GroupBy(x => x.Value<string>("projectCategory"))
+    .Select(group => new
+    {
+        Category = group.Key,
+        Count = group.Count()
+    })
+    .ToList();
+    
+    listOfProjects.RemoveAll(x => x.Name == Model.Name);
+
+	var image = Model.Value<IPublishedContent>("projectImage");
+	var title = Model.Name;
+	var createdDate = Model.CreateDate.ToString("MMM dd, yyyy");
+	var category = Model.Value("projectCategory");
+	var author = Model.CreatorName(UserService);
+	var contentInformation = @Model.Value("projectContent");
+}
+
+
+<section class="article">
+    <div class="container">
+        <div class="row title-row">
+            <div class="col-12 col-md-8 col-lg-6 ps-4">
+                <h1>@title</h1>
+                <div class="author-date-type d-flex align-items-center">
+                    <span>@createdDate</span>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>@category</span>
+                    <i class="fa-solid fa-circle"></i>
+                    <span>@author</span>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between m-0">
+            <article class="col-12 col-md-7">
+                <div class="img-container">
+                    <img src="@image.MediaUrl()" alt="">
+                </div>
+                <div class="information">
+                    @contentInformation
+                </div>
+            </article>
+            <aside class="d-none d-md-block col-md-4">
+                <div class="search-input">
+                    <input type="text" placeholder="Type to search..">
+                </div>
+                <div class="recent-posts">
+                    <h2>Recent Posts</h2>
+                        @foreach(var item in listOfProjects)
+                        {
+                            <div class="recent-post-card d-flex flex-column">
+                                <a href="@item.Url()">@item.Name </a>
+                                <span>@item.CreateDate.ToString("MMM,dd, yyyy")</span>
+                            </div>
+                        }
+                </div>
+                <div class="categories mt-5">
+                    <h2>Categories</h2>
+                    <div class="category d-flex flex-column">
+                        @foreach(var item in categoriesAndPosts){
+                            <a href="#">@item.Category - <span>@item.Count Posts</span></a>
+                        }
+
+                    </div>
+                </div>
+            </aside>
+            </div>
+        </div>
+    </div>
+</section>

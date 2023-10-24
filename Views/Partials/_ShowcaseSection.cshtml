@@ -1,0 +1,42 @@
+﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+ <!--Showcase-->
+<section class="showcase">
+    <div class="container">
+        <div class="row d-flex justify-content-between">
+            <div class="col-12 col-xl-7 showcase-info">
+                <h1 class="text-center text-md-start">@Model.Value("showcaseTitle")</h1>
+                <h2>
+                    @Model.Value("showcaseDescription")
+                </h2>
+                <div class="showcase-buttons row flex-row justify-content-evenly justify-content-xl-start">
+                    <a href="@Model.Value("showcaseButtonUrl")" class="yellow-button-anchor col-5 col-xl-4 text-center"
+                        >@Model.Value("showcaseButtonText")
+                        <i class="fa-solid fa-arrow-up-right"></i
+                    ></a>
+                    <a href="#" class="blackline-button-anchor col-5 text-center col-xl-4 ms-xl-3"
+                        >Learn More
+                        <i class="fa-solid fa-arrow-up-right"></i
+                    ></a>
+                </div>
+            </div>
+            <div class="col-1 col-md-5">
+
+                @{
+                    var showcaseImage = Model.Value<MediaWithCrops>("showcaseImage");
+
+                    if (showcaseImage != null)
+                    {
+                        <img
+                             src = "@showcaseImage.MediaUrl()"
+                             alt = "@Model.Value("showcaseTitle")"
+                             />
+                          }
+                    }
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,33 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ReviewsPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "_Layout.cshtml";
+	
+	ViewData["PageTitle"] = Model.Value("pageTitle");
+	ViewData["PageDescription"] = Model.Value("pageDescription");
+	ViewData["PageKeywords"] = Model.Value("pageKeywords");
+	
+	
+
+	var reviewList = Umbraco.Content(Guid.Parse("af3987d4-996d-4671-9dd9-5a9b41189269"))
+    .ChildrenOfType("reviewsItemPage")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+}
+
+
+
+
+@await Html.PartialAsync("_BreadcrumbSection")
+
+<section class="testimonial py-5">
+    <div class="container">
+        <div class="row pb-5">
+            @foreach(var review in reviewList){
+                @await Html.PartialAsync("cards/_ReviewCard", review)
+            }
+        </div>
+
+    </div>
+</section>

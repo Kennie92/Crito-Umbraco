@@ -1,0 +1,14 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Crito.Models;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "_Layout.cshtml";
+
+    var contactForm = new ContactForm();
+}
+
+@await Html.PartialAsync("_BreadcrumbSection")
+@await Html.PartialAsync("_ContactInformation")
+@await Html.PartialAsync("_ContactUsForm")
+@await Html.PartialAsync("_GoogleMaps")

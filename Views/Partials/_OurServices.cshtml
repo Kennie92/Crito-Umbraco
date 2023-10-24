@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IEnumerable<IPublishedContent>>
+
+<section class="our-services">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="col-12 col-xl-4 pb-5">
+                    <h1 class="title-orange">Our Services</h1>
+                    <h2 class="ingress">
+                        We Provide The Best Service For Consulting
+                    </h2>
+                </div>
+                <div class="row d-flex justify-content-xl-between justify-content-evenly">
+                   @foreach(var service in Model) 
+                   {
+                        @await Html.PartialAsync("cards/_ServiceCard", service)
+                   }
+                </div>
+            </div>
+        </div>
+        <div class="m-5 text-center">
+            <a class="blackline-button-anchor" href="/service"
+                >Browse Services
+                <i class="fa-solid fa-arrow-up-right"></i
+            ></a>
+        </div>
+    </div>
+</section>

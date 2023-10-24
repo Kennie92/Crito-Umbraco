@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var name = Model.Value("memberName");
+    var role =  Model.Value("memberRole");
+    var image = Model.Value<IPublishedContent>("memberProfileImage").Url();
+    
+    
+}
+
+ <div class="col-3">
+    <img
+        class="w-100 h-auto"
+        src="@image"
+        alt="@name"
+    />
+    <h3>@name</h3>
+    <h4>@role</h4>
+</div>

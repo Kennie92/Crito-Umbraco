@@ -1,0 +1,38 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArticlePageList>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "_Layout.cshtml";
+	ViewData["PageTitle"] = @Model.Value("pageTitle");
+	ViewData["PageDescription"] = @Model.Value("pageDescription");
+	ViewData["PageKeywords"] = @Model.Value("pageKeywords");
+	
+	var selection = Umbraco.Content(Guid.Parse("f0723956-45ba-4e26-9181-6fb7a0656201"))
+        .ChildrenOfType("articleItemPage")
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate);
+	
+}
+
+
+
+@await Html.PartialAsync("_BreadcrumbSection")
+
+<section class="pt-5">
+    <div class="container">
+        <form class="row d-flex justify-content-center align-items-center" action="@Model.Url()" method="get">
+            <div class="col-12 col-md-4 text-md-end text-center">
+                <input class="py-2 px-5 rounded-5 border-0 form-control" type="text" placeholder="Search...." name="query" style="background-color: rgba(0, 0, 0, 0.1);" />
+            </div>
+            <div class="col-12 my-3 my-md-0 text-center text-md-start col-md-3 col-lg-2">
+                <button class="yellow-button-anchor border-0">
+                    Search <i class="fa-solid fa-arrow-up-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+@await Html.PartialAsync("_OurNewsAndArticlesSection", selection)
+@await Html.PartialAsync("_Subscription")
+

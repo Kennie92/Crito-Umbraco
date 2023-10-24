@@ -1,0 +1,35 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.MemberPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "_Layout.cshtml";	
+	ViewData["PageTitle"] = Model.Value("pageTitle");
+	ViewData["PageDescription"] = Model.Value("pageDescription");
+	ViewData["PageKeywords"] = Model.Value("pageKeywords");
+	var memberList = Umbraco.Content(Guid.Parse("00068b4f-9f82-4307-8801-61676d680d6c"))
+    .ChildrenOfType("memberItemPage")
+    .Where(x => x.IsVisible()).Take(4);
+	
+}
+
+
+	
+
+
+@await Html.PartialAsync("_BreadcrumbSection")
+
+
+<!--Members-->
+<section class="our-team py-5">
+    <div class="container">
+        <div
+            class="row d-flex justify-content-between align-items-center"
+        >
+        </div>
+        <div class="row pt-5">
+            @foreach(var member in memberList){
+                @await Html.PartialAsync("cards/_TeamMemberCard", member)
+            }
+        </div>
+    </div>
+</section>

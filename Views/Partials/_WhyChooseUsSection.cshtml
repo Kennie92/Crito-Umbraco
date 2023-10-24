@@ -1,0 +1,46 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Web.Common.PublishedModels;
+
+
+
+
+@{  
+    var whyChooseUsBlockList = Model.WhyChooseUsList;
+    
+    //Ordering the list so the newest is first.
+    var blockListModel = new BlockListModel(whyChooseUsBlockList.OrderByDescending(x => whyChooseUsBlockList.IndexOf(x)).ToList());
+    
+    var image = Model.Value<MediaWithCrops>("whyChooseUsImage");
+}
+
+ <!--Why choose us-->
+<section class="choose-us">
+    <div class="container">
+        <div
+            class="row d-flex align-items-center justify-content-evenly"
+        >
+            <div class="col-12 col-lg-4">
+                <h1 class="title-orange">@Model.Value("whyChooseUsTitle")</h1>
+                <h2 class="ingress">
+                    @Model.Value("whyChooseUsIngress")
+                </h2>
+                <div>
+                    <div class="row d-flex align-items-center">
+                        @Html.GetBlockListHtml(blockListModel)
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <img
+                    class="w-100 h-auto"
+                    src="@image.MediaUrl()"
+                    alt="People talking"
+                />
+            </div>
+        </div>
+    </div>
+</section>

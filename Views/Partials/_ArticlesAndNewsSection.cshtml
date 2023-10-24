@@ -1,0 +1,30 @@
+﻿@using Umbraco.Cms.Core.Models.PublishedContent
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IEnumerable<IPublishedContent>>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+  <!--Article & News-->
+ <section class="article-and-news py-5">
+    <div class="container">
+        <h1 class="title-orange">Article & News</h1>
+        <div
+            class="row d-flex align-items-center pb-5"
+        >
+            <h2 class="ingress col-md-8">
+                Get Every Single Articles & News
+            </h2>
+            <div class="col-md-4 d-none d-md-block text-md-end">
+                <a class="blackline-button-anchor" href="/news"
+                    >Browse Articles
+                    <i class="fa-solid fa-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach(var item in Model){
+                @await Html.PartialAsync("cards/_ArticleCard", item)
+            }
+            </div>
+        </div>
+    </div>
+</section>

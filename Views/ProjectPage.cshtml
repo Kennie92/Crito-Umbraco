@@ -1,0 +1,30 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProjectPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "_Layout.cshtml";
+	
+	var projectList = Umbraco.Content(Guid.Parse("df621e98-7972-4b4e-a501-23f3905113ff"))
+    .ChildrenOfType("projectItemPage")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate).ToList();
+	
+	
+}
+
+@await Html.PartialAsync("_BreadcrumbSection")
+
+<section class="project-case-studies my-5">
+    <div class="container">
+        <div class="row">
+            <div
+                class="row d-flex justify-content-between py-3 m-0 business-cards"
+            >
+                @foreach(var item in projectList)
+                {
+                    @await Html.PartialAsync("cards/_ProjectCard", item)
+                }
+            </div>
+        </div>
+    </div>
+</section>

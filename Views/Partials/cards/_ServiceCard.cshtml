@@ -1,0 +1,12 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    var description = Model.Value("servicePageDescription");
+    var title = Model.Value("servicePageTitle");
+}
+<div class="business-card">
+    <h3>@title</h3>
+    <p>
+        @description
+    </p>
+</div>

@@ -1,0 +1,95 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+@{ 
+    var site = Model.Root();
+    var selection = Model.Root().Children.Where(x => x.IsVisible(PublishedValueFallback)).ToArray(); 
+}
+
+
+
+<header>
+    <section class="section-for-navbar py-3">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a href="/home" class="header-logo me-5"
+                ><img src="/staticImages/logos/Logo.png" alt="logo"
+            /></a>
+            <div class="toggle d-lg-none">
+                <button class="btn-toggle btn-outline-white" data-option="toggle" data-target="#test">
+                    <i id="icon" class="fa-regular fa-bars"></i>
+                </button>
+            </div>
+            <nav class="w-100 d-lg-block d-none">
+                <div class="first-line d-flex justify-content-between">
+                    <div class="info-about-company">
+                        <span
+                            ><i class="fa-regular fa-phone-volume"></i
+                            >+46 (a) 121 470 50</span
+                        >
+                        <span
+                            ><i class="fa-regular fa-envelope"></i
+                            >info@crito.com</span
+                        >
+                        <span
+                            ><i
+                                class="fa-sharp fa-regular fa-location-dot"
+                            ></i
+                            >Sveavägen 31, 111 34 Stockholm</span
+                        >
+                    </div>
+                    <div class="social-media">
+                        <a href="#"
+                            ><i class="fa-brands fa-facebook"></i
+                        ></a>
+                        <a href="#"
+                            ><i class="fa-brands fa-twitter"></i
+                        ></a>
+                        <a href="#"
+                            ><i class="fa-brands fa-instagram"></i
+                        ></a>
+                        <a href="#"
+                            ><i class="fa-brands fa-linkedin"></i
+                        ></a>
+                    </div>
+                </div>
+                <div
+                    class="second-line d-flex align-items-center justify-content-between"
+                >
+                    <div class="navbar">
+                        <a class="@(Model.Id == site.Id ? "current" : null)" href="@site.Url()">@site.Name()</a>
+                        @if (selection?.Length > 0)
+                        {
+                            @foreach (var item in selection)
+                            {
+                                <a class="@(item.IsAncestorOrSelf(Model) ? "current" : null)" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+                            }
+                        }
+                    </div>
+                    <div class="sign-in">
+                        <a href="#" class="yellow-button-anchor"
+                            >Login
+                            <i class="fa-solid fa-arrow-up-right"></i
+                        ></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <nav id="test" class="container-fluid d-lg-none hamburger-menu">
+            <div class="d-flex flex-column text-center">
+                <a href="@site.Url()">@site.Name()</a>
+                @if (selection?.Length > 0)
+                {
+                    @foreach (var item in selection)
+                    {
+                        <a class="@(item.IsAncestorOrSelf(Model) ? "current" : null)" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+                    }
+                }
+            </div>
+        </nav>
+    </section>
+</header>

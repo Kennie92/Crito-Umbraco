@@ -1,0 +1,52 @@
+﻿@inherits Umbraco.Cms.Web.Common.Macros.PartialViewMacroPage
+
+@{
+    var role = Model.Value("reviewWriterRole");
+    var imageUrl = Model.Value<IPublishedContent>("reviewWriterImage").Url();
+    var corporation = Model.Value("reviewWriterCorporation");
+    var name = Model.Value("reviewWriter");
+    var rating = Convert.ToDouble(Model.Value("reviewRating"));
+    var description = Model.Value("reviewDescription");
+
+    List<double> stars = new List<double> { 1, 2, 3, 4, 5 };
+}
+
+<div class="col-12 col-xl-4 pb-4 px-lg-5">
+    <div class="stars">
+        @foreach (var star in stars)
+        {
+            if (rating >= star)
+            {
+                <i class="fa-solid fa-star"></i>
+            }
+            else if (rating >= star - 0.5)
+            {
+                <i class="fa-solid fa-star-half-stroke"></i>
+            }
+            else
+            {
+                <i class="fa-regular fa-star"></i>
+            }
+        }
+    </div>
+    <p class="comments">
+        "@description"
+    </p>
+    <div class="commented-by">
+        <div class="row">
+            <div class="col-2">
+                <img
+                    height="50px"
+                    width="50px"
+                    class="rounded-circle"
+                    src="@imageUrl"
+                    alt="Picture of @name"
+                />
+            </div>
+            <div class="col-9">
+                <h3>@name</h3>
+                <h4>@role, @corporation</h4>
+            </div>
+        </div>
+    </div>
+</div>

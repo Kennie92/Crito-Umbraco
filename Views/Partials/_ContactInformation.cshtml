@@ -1,0 +1,49 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+<section class="connect-information">
+    <div class="container">
+        <div class="row d-flex justify-content-md-evenly flex-md-row">
+            <div
+                class="col-4 col-md-3 text-information d-flex flex-column justify-content-between"
+            >
+                <div class="row d-flex">
+                    <div class="col-3 col-lg-4 text-end pe-3">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="col-9 col-lg-8">
+                        <h2>Visit us</h2>
+                        <p>@Model.Value("contactInformationStreetName")</p>
+                        <p>@Model.Value("contactInformationPostalCode") @Model.Value("contactInformationCity")</p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-4 col-md-3 text-information d-flex flex-column justify-content-between"
+            >
+                <div class="row d-flex">
+                    <div class="col-3 col-lg-4  text-end pe-3">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="col-9 col-lg-8">
+                        <h2>Call us</h2>
+                        <p>@Model.Value("contactInformationPhone1")</p>
+                        <p>@Model.Value("contactInformationPhone2")</p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-4 col-md-3 text-information d-flex flex-column justify-content-between"
+            >
+                <div class="row d-flex">
+                    <div class="col-3 col-lg-4  text-end pe-3">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="col-9 col-lg-8">
+                        <h2>Email us</h2>
+                        <p>@Model.Value("contactInformationEmail1")</p>
+                        <p>@Model.Value("contactInformationEmail2")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,31 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.AboutPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "_Layout.cshtml";
+	
+	ViewData["PageTitle"] = Model.Value("pageTitle");
+	ViewData["PageDescription"] = Model.Value("pageDescription");
+	ViewData["PageKeywords"] = Model.Value("pageKeywords");
+	ViewData["MemberSectionTitle"] = Model.Value("memberSectionTitle");
+	ViewData["MemberSectionIngress"] = Model.Value("memberSectionIngress");
+
+	var memberList = Umbraco.Content(Guid.Parse("00068b4f-9f82-4307-8801-61676d680d6c"))
+    .ChildrenOfType("memberItemPage")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate);
+    
+    
+
+	var reviewList = Umbraco.Content(Guid.Parse("af3987d4-996d-4671-9dd9-5a9b41189269"))
+    .ChildrenOfType("reviewsItemPage")
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate).Take(3);
+
+}
+
+
+
+@await Html.PartialAsync("_BreadcrumbSection")
+@await Html.PartialAsync("team/_teamMemberSection", memberList)
+@await Html.PartialAsync("team/_ReviewsSection", reviewList)

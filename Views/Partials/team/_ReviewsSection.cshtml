@@ -1,0 +1,26 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IEnumerable<IPublishedContent>>
+ <!--Testimonial-->
+<section class="testimonial py-5">
+    <div class="container">
+        <div class="row text-center pb-5">
+            <h1 class="title-orange">Testimonial</h1>
+            <h2 class="ingress">What Our Client Says</h2>
+        </div>
+        <div class="row pb-5">
+            @foreach(var review in Model)
+            {
+                 @await Html.PartialAsync("cards/_ReviewCard", review)
+            }
+        </div>
+        <div class="col-12 d-flex justify-content-center p-md-5">
+            <a class="all-black-button-anchor" href="/about/reviews"
+                >All Recent Reviews<i
+                    class="fa-solid fa-arrow-up-right"
+                ></i
+            ></a>
+        </div>
+    </div>
+</section>

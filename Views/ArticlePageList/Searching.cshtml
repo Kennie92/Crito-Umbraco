@@ -1,0 +1,39 @@
+﻿@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Crito.Models.ViewModels.SearchViewModel>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "../_Layout.cshtml";
+
+
+    
+}
+
+@await Html.PartialAsync("_BreadcrumbSection")
+
+<p class="text-center pt-2">Search Results for: <span>@Model.SearchValue</span></p>
+
+
+
+@await Html.PartialAsync("_Searchbar")
+
+<div>
+    @if (Model.SearchResults.Any())
+    {
+        <section class="our-news">
+            <div class="container">
+                <div class="row">
+                    @foreach (var content in Model.SearchResults)
+                    {
+                        @await Html.PartialAsync("cards/_ArticleCard", content)
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    else if (Model.HasSearched)
+    {
+        <p>No results found</p>
+    }
+</div>
+

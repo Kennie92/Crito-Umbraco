@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.ChooseUsCard)Model.Content;
+}
+
+
+<div class="col-1">
+    <i class="@content.Value("chooseUsCardIcon")"></i>
+</div>
+<div class="col-10 ms-4">
+    <h3>@content.Value("chooseUsCardTitle")</h3>
+    <p>
+        @content.Value("chooseUsCardDescription")
+    </p>
+</div>

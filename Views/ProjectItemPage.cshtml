@@ -1,0 +1,25 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProjectItemPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@using Umbraco.Cms.Core.Services;
+@inject IUserService UserService;
+@{
+    Layout = "_Layout.cshtml";
+    var userService = UserService;
+
+	var selection = Umbraco.Content(Guid.Parse("df621e98-7972-4b4e-a501-23f3905113ff"))
+        .ChildrenOfType("projectItemPage")
+        .Where(x => x.IsVisible())
+        .OrderByDescending(x => x.CreateDate).ToList();
+
+    var listOfArticlesFullInformation = selection;
+    
+    ViewData["Categories"] = listOfArticlesFullInformation;
+
+    ViewData["ListOfProjects"] = selection;
+    
+}
+
+@await Html.PartialAsync("_BreadcrumbSection")
+@await Html.PartialAsync("_ProjectDetailsSection", Model)

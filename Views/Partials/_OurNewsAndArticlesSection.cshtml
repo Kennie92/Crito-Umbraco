@@ -1,0 +1,56 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IEnumerable<IPublishedContent>>
+@{
+
+    var itemsPerPage = 6;
+    var pageNumber = 1;
+    
+    if (!int.TryParse(Context.Request.Query["page"], out pageNumber))
+        pageNumber = 1;
+        
+    var totalItems = Model?.Count() ?? 0;
+    var pageditems = Model?.Skip((pageNumber -1) * itemsPerPage).Take(itemsPerPage);
+}
+
+
+<section class="our-news">
+    <div class="container">
+        <h1>Our News & Articles</h1>
+        <div class="row">
+            @foreach (var item in pageditems)
+            {
+                @await Html.PartialAsync("cards/_ArticleCard", item)
+            }
+        </div>
+        <div>
+            @if (Math.Ceiling((decimal)totalItems / itemsPerPage) > 1)
+            {
+                <nav class="paginations text-center">
+                    @if (pageNumber > 1)
+                    {
+                        <a href="?page=@(pageNumber - 1)"><i class="fa-solid fa-chevron-left"></i></a>
+                    }
+
+                    @for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+                    {
+                        if (i == pageNumber)
+                        {
+                            <a class="active" href="?page=@i">@i</a>
+                        }
+                        else
+                        {
+                            <a href="?page=@i">@i</a>
+                        }
+                    }
+
+                    @if (pageNumber < Math.Ceiling((decimal)totalItems / itemsPerPage))
+                    {
+                        <a href="?page=@(pageNumber + 1)"><i class="fa-solid fa-chevron-right"></i></a>
+                    }
+                </nav>
+            }
+        </div>
+    </div>
+</section>

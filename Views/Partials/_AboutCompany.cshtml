@@ -1,0 +1,49 @@
+﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+ <section class="about-company">
+    <div class="container">
+        <div class="row d-flex justify-content-evenly">
+            <div class="col-lg-4 img-container">
+                 @{
+                    var image = Model.Value<MediaWithCrops>("aboutCompanyImage");
+                    if (image != null)
+                    {
+                        <img
+                            class="w-100 h-auto"
+                             src = "@image.MediaUrl()"
+                             alt = "@Model.Value("aboutCompanyTitle")"
+                             />
+                          }
+                    }
+                <div class="text-over-picture">
+                    <h3>@Model.Value("aboutCompanyQuoteBy"), <span>@Model.Value("aboutCompanyQuoteProfession")</span></h3>
+                    <p>
+                        "@Model.Value("aboutCompanyQuoteText")"
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 info-container">
+                <h1 class="title-orange">About Company</h1>
+                <h2 class="ingress">
+                    @Model.Value("aboutCompanyTitle")
+                </h2>
+                <p>
+                    @Model.Value("aboutCompanyDescription")
+                </p>
+                <div class="buttons">
+                    <a href="/about"
+                        >Learn More
+                        <i class="fa-solid fa-arrow-up-right"></i
+                    ></a>
+                    <button>
+                        <i class="fa-solid fa-play"></i>
+                        <span>Intro Video</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
